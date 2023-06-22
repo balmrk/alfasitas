@@ -45,24 +45,25 @@ Egy böngésző ablakot nyit meg, amiben kiválasztható egy kép (a fent említ
 -	kep: A kimenetet tartalmazza.
 
 ### Felhasználói bevitel kezelése ( Eger() )
-Miután kiválasztottuk a szerkesztésre szánt képet és megnyílt a két ablak, az alábbi gombokkal választhatunk a műveletek közül (self.mod):
+#### Miután kiválasztottuk a szerkesztésre szánt képet és megnyílt a két ablak, az alábbi gombokkal választhatunk a műveletek közül (self.mod):
 -	[ q ] Alfásítás: A gomb megnyomásakor fut le a GrabCut algoritmus. Ha rajzoltunk fel téglalapot, akkor az alapján, ellenkező esetben 
 -	[ w ] Téglalap rajzolása kivágáshoz: A háttér kivágásának egyik módszere, hogy egy téglalapot rajzolunk az eredeti képre. Ez a kezdő állapot is. Egyszerre csak egy téglalapot lehet rajzolni, minden új felülírja a régit.
 -	[ t ] Mentés: Lementi a képet. A fájl eredeti neve ’alfa_’ előtaggal lesz kiegészítve, a kiterjesztése ugyan az, mint a bevitelinek. A szkript aktuális könyvtárába ment.
 -	[ Esc ] Kilépés
-Az egérmutató bal gombja a legfontosabb eszköz a programban. Az előfeltétel (self.mod) megvizsgálása után, a bal egérgomb lenyomásával végezhetünk különböző műveleteket:
+
+#### Az egérmutató bal gombja a legfontosabb eszköz a programban. Az előfeltétel (self.mod) megvizsgálása után, a bal egérgomb lenyomásával végezhetünk különböző műveleteket:
 -	w gomb: {self.mod = 0} Téglalap rajzolását teszi lehetővé a beviteli ablakban. Az egérrel a téglalap átlóját kell megrajzolnunk. A bal egérgomb lenyomásakor kijelölünk egy pontot a képen az x és y tengelyen, felengedéskor ezzel a sarokkal átlósan egy másik pontot. Ezt a két pontot a cv.rectangle() metódusba táplálva kapjuk meg a jelölő téglalapot. Ez a téglalap a szegmentációhoz szükséges. A kívül eső pixelek PR_BGD flag-et, azaz „valószínűleg háttér” jelzést kapnak a GrabCut() algoritmustól, a bentiek PR_FGD flag-et, azaz „valószínűleg előtér” jelzést. Ahhoz, hogy a szegmentációban érvényesüljön a téglalap szerepe, a GrabCut()-ot GC_INIT_WITH_RECT állapotban kell futtatni.
 -	e gomb: {self.mod = 1} Ha az algoritmus futása után maradt a képen olyan részlet, ami a háttérhez tartozik, akkor az ecset eszköz használatával írhatjuk át a mask értékeit. Az eszköz egyrészt a képen világos szürke színnel jelöli, másrészt a maszkon 0 értéket helyez el, ez a flag a GC_BGD.
 -	r gomb: {self.mod = 2} Az előző eset ellenkezője. Ha olyan részt vágott ki az algoritmus, aminek szerepelnie kéne a képen, megjelölhetjük a maszkon a „biztosan előtér” (GC_FGD) flag-gel, azaz 1-es értékkel. 
 
 ## Felhasznált források:
 -	OpenCV: 
-o	https://learnopencv.com/getting-started-with-opencv/
+  https://learnopencv.com/getting-started-with-opencv/
 -	OpenCV dokumentáció:
-o	https://docs.opencv.org/4.x/df/d65/tutorial_table_of_content_introduction.html
+  https://docs.opencv.org/4.x/df/d65/tutorial_table_of_content_introduction.html
 -	GrabCut algoritmus:
-o	https://docs.opencv.org/3.4/d8/d83/tutorial_py_grabcut.html
+  https://docs.opencv.org/3.4/d8/d83/tutorial_py_grabcut.html
 -	egér kezelése:
-o	https://docs.opencv.org/4.x/db/d5b/tutorial_py_mouse_handling.html
+  https://docs.opencv.org/4.x/db/d5b/tutorial_py_mouse_handling.html
 -	Numpy:
-o	https://numpy.org/doc/stable/numpy-user.pdf
+  https://numpy.org/doc/stable/numpy-user.pdf
